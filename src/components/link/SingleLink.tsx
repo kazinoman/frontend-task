@@ -59,7 +59,7 @@ const SingleLink: React.FC<Link> = ({ providers, link, id }) => {
         <Input
           placeholder=""
           value={link}
-          className="w-full h-12"
+          className="w-full h-12 text-base"
           defaultValue={link}
           readOnly
           prefix={<FiLink className="mr-4" />}

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Ubuntu } from "next/font/google";
+import { Inter } from "next/font/google";
+
+import { LinkProvider } from "@/context/LinkListContextProvider";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ubuntu.className}`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <LinkProvider>{children}</LinkProvider>
+      </body>
     </html>
   );
 }

@@ -10,6 +10,8 @@ import { Links } from "@/type/custom";
 import SingleLink from "./SingleLink";
 import { addLink } from "./action";
 import { message } from "antd";
+import { SiDevdotto, SiFreecodecamp } from "react-icons/si";
+import { useLinkContext } from "@/context/LinkListContextProvider";
 
 interface LinkContainerProps {
   links: Links[];
@@ -25,8 +27,10 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   const [isAddingLink, setIsAddingLink] = useState(false);
   const [nextId, setNextId] = useState(1);
   const [messageApi, contextHolder] = message.useMessage();
+  const { setSavedLinks, setLoading } = useLinkContext();
 
   const [form] = Form.useForm();
+  const provider = Form.useWatch("providers", form);
 
   const handleAddLinkClick = () => {
     // Mark that a link is being added
@@ -41,15 +45,30 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
     return timestamp * 10000 + randomNum;
   };
 
+  // Options for providers
   const options = [
-    { value: "google", label: "Google", icon: <FaGoogle /> },
-    { value: "facebook", label: "Facebook", icon: <FaFacebookF /> },
-    { value: "instagram", label: "Instagram", icon: <FaInstagram /> },
-    { value: "youtube", label: "Youtube", icon: <FaYoutube /> },
-    { value: "twitter", label: "Twitter", icon: <FaTwitter /> },
-    { value: "github", label: "Github", icon: <FaGithub /> },
-    { value: "linkedin", label: "Linkedin", icon: <FaLinkedin /> },
+    { value: "google", label: "Google", icon: <FaGoogle />, domain: "google.com" },
+    { value: "facebook", label: "Facebook", icon: <FaFacebookF />, domain: "facebook.com" },
+    { value: "instagram", label: "Instagram", icon: <FaInstagram />, domain: "instagram.com" },
+    { value: "youtube", label: "Youtube", icon: <FaYoutube />, domain: "youtube.com" },
+    { value: "twitter", label: "Twitter", icon: <FaTwitter />, domain: "x.com" },
+    { value: "github", label: "Github", icon: <FaGithub />, domain: "github.com" },
+    { value: "linkedin", label: "Linkedin", icon: <FaLinkedin />, domain: "linkedin.com" },
+    { value: "devto", label: "Dev.to", icon: <SiDevdotto />, domain: "dev.to" },
+    { value: "freecodecamp", label: "freeCodeCamp", icon: <SiFreecodecamp />, domain: "freecodecamp.org" },
   ];
+
+  // URL validation function based on the selected provider
+  const validateURL = async (_: any, value: string) => {
+    if (!value) return Promise.resolve();
+
+    const selectedOption = options.find((option) => option.value === provider);
+    if (selectedOption && !value.includes(selectedOption.domain)) {
+      return Promise.reject(new Error(`Please enter a valid link !!`));
+    }
+
+    return Promise.resolve();
+  };
 
   // this will trigger form onSubmit and as well as onFinish
   const handleFormSubmit = () => {
@@ -97,7 +116,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
 
   const addLinkForm = () => {
     return (
-      <div className="w-full mt-5 border p-5 bg-[#fafafa] rounded-2xl">
+      <div className="w-full mt-5 p-5 bg-[#fafafa] rounded-2xl">
         <div className="flex flex-row justify-between items-center gap-3 my-3">
           <p className="font-bold text-base text-gray-500">Link #{nextId}</p>
           <button className="font-light text-base text-gray-500" onClick={handleAddLinkClick}>
@@ -132,8 +151,15 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
             />
           </Form.Item>
 
-          <Form.Item label="Link" name="link" rules={[{ required: true, message: "Please input your link!" }]}>
-            <Input className="w-full h-12" prefix={<FiLink className="mr-4" />} />
+          <Form.Item
+            label="Link"
+            name="link"
+            rules={[
+              { required: true, message: "Please input your link!" },
+              { validator: validateURL }, // Custom URL validation
+            ]}
+          >
+            <Input className="w-full h-12 text-base" prefix={<FiLink className="mr-4" />} />
           </Form.Item>
         </Form>
       </div>
@@ -154,15 +180,22 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
     );
   };
 
+  if (links) {
+    setSavedLinks(links);
+  }
+
   return (
-    <div className="p-5">
+    <div className="p-0">
       <div className="text-start flex flex-col gap-2">
-        <h2 className="text-3xl font-bold text-gray-900">Customize your links</h2>
+        <h2 className="text-base md:text-lg lg:text-lg xl:text-3xl  font-bold text-gray-900">Customize your links</h2>
         <p className="text-gray-500 font-light text-base">
           Add/edit/remove links below and then share all your profiles with the world!
         </p>
 
-        <button className="mt-5 bg-primary text-white px-4 py-4 rounded-md" onClick={handleAddLinkClick}>
+        <button
+          className="mt-5 bg-white text-primary border-primary border px-4 py-4 rounded-md"
+          onClick={handleAddLinkClick}
+        >
           <div className="flex items-center justify-center gap-2">
             <FaPlus />
             Add New Link
@@ -174,7 +207,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
         noLinksFound()
       ) : (
         <>
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-1 gap-5 max-h-[600px] overflow-y-auto">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-1 gap-5 max-h-[600px] overflow-y-auto">
             {isAddingLink && addLinkForm()}
 
             {links.map((link) => {

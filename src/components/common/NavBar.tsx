@@ -13,7 +13,7 @@ export default function NavBar() {
   console.log("pathname", pathname);
 
   return (
-    <nav className="bg-white p-8 rounded-2xl flex items-center justify-between sticky top-0">
+    <nav className="bg-white p-8 rounded-2xl flex items-center justify-between sticky top-0 z-20">
       <Image src="/logo-devlinks-large.svg" alt="logo" width={150} height={150} />
 
       <div className="flex space-x-4">
