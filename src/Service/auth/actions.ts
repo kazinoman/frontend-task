@@ -38,7 +38,8 @@ export async function signUp(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect("/signup?error=invalid credentials");
+    console.log(error.message);
+    redirect(`/signup?error=${error.message}`);
   }
 
   revalidatePath("/", "layout");
