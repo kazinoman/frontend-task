@@ -5,8 +5,12 @@ export default function SignUpPage() {
   return (
     <div className="container max-w-sm mx-auto flex items-center justify-center h-screen ">
       <form className="max-w-md min-w-[400px] h-fit border rounded-md p-5 shadow-xl flex flex-col items-start justify-center gap-7 bg-white">
+        <p className="self-center font-semibold text-2xl text-primary">Sign Up</p>
+
         <div className="w-full">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="text-gray-400">
+            Email
+          </label>
           <input
             placeholder="test@me.com"
             id="email"
@@ -18,7 +22,9 @@ export default function SignUpPage() {
         </div>
 
         <div className="w-full">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password" className="text-gray-400">
+            Password:
+          </label>
           <input
             placeholder="123456789"
             id="password"

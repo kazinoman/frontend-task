@@ -27,3 +27,63 @@ body {
     text-wrap: balance;
   }
 }
+
+/* 
+
+$primary: #633cff;
+$secondary: #beadff;
+$light-purple: #efebff;
+$dark-grey: #333333;
+$grey: #737373;
+$borders: #d9d9d9;
+$light-grey: #fafafa;
+$white: #ffffff;
+$red: #ff3939; */
+
+/* :root {
+  --active-icon: #633cff;
+}
+
+.devlinks__list--item[data-platform='github'] {
+  background-color: #1a1a1a;
+}
+.devlinks__list--item[data-platform='youtube'] {
+  background-color: #ee3939;
+}
+.devlinks__list--item[data-platform='frontend-mentor'] {
+  background-color: #fff;
+  color: $dark-grey;
+}
+.devlinks__list--item[data-platform='twitter'] {
+  background-color: #43b7e9;
+}
+.devlinks__list--item[data-platform='linkedIn'] {
+  background-color: #2d68ff;
+}
+.devlinks__list--item[data-platform='facebook'] {
+  background-color: #2442ac;
+}
+.devlinks__list--item[data-platform='twitch'] {
+  background-color: #ee3fc8;
+}
+.devlinks__list--item[data-platform='devto'] {
+  background-color: $dark-grey;
+}
+.devlinks__list--item[data-platform='codewars'] {
+  background-color: #8a1a50;
+}
+.devlinks__list--item[data-platform='freeCodeCamp'] {
+  background-color: #302267;
+}
+.devlinks__list--item[data-platform='gitlab'] {
+  background-color: #eb4925;
+}
+.devlinks__list--item[data-platform='hashnode'] {
+  background-color: #0330d1;
+}
+.devlinks__list--item[data-platform='stackoverflow'] {
+  background-color: #ec7100;
+}
+.devlinks__list--item[data-platform='codepen'] {
+  background-color: #47cf73;
+} */

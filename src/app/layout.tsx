@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Ubuntu } from "next/font/google";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -11,6 +12,12 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+});
+
+// Import the Ubuntu font
+const ubuntu = Ubuntu({
+  weight: ["400", "700"], // You can choose weights like '400', '700', etc.
+  subsets: ["latin"], // Choose the subset(s) you'd like to include
 });
 
 export const metadata: Metadata = {
@@ -25,11 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${ubuntu.className}`}>{children}</body>
     </html>
   );
 }

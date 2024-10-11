@@ -1,8 +1,8 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { logout } from "../../Service/auth/actions";
+import { logout } from "../../../../Service/auth/actions";
 
-import { createClient } from "../../utils/server";
+import { createClient } from "../../../../utils/server";
 
 export default async function ProfilePage() {
   const supabase = createClient();

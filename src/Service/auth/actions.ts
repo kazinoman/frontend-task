@@ -22,7 +22,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/profile");
+  redirect("/info/links");
 }
 
 export async function signUp(formData: FormData) {
@@ -42,7 +42,7 @@ export async function signUp(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/profile");
+  redirect("/info/links");
 }
 
 export async function logout() {
