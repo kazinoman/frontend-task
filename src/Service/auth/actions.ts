@@ -18,14 +18,14 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    redirect("/error");
+    redirect("/?error=invalid credentials");
   }
 
   revalidatePath("/", "layout");
   redirect("/profile");
 }
 
-export async function signup(formData: FormData) {
+export async function signUp(formData: FormData) {
   const supabase = createClient();
 
   // type-casting here for convenience
@@ -38,7 +38,7 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect("/error");
+    redirect("/signup?error=invalid credentials");
   }
 
   revalidatePath("/", "layout");
@@ -49,5 +49,5 @@ export async function logout() {
   const supabase = createClient();
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect("/login");
+  redirect("/");
 }

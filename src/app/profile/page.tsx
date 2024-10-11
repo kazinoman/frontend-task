@@ -1,6 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { logout } from "../login/actions";
+import { logout } from "../../Service/auth/actions";
 
 import { createClient } from "../../utils/server";
 

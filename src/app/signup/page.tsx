@@ -1,8 +1,7 @@
-import Image from "next/image";
-import SignUpLink from "../components/login/signUp";
-import { login } from "../Service/auth/actions";
+import { signUp } from "../../Service/auth/actions";
+import SignInLink from "./component/singInPageLink";
 
-export default function Home() {
+export default function SignUpPage() {
   return (
     <div className="container max-w-sm mx-auto flex items-center justify-center h-screen ">
       <form className="max-w-md min-w-[400px] h-fit border rounded-md p-5 shadow-xl flex flex-col items-start justify-center gap-7 bg-white">
@@ -31,13 +30,13 @@ export default function Home() {
         </div>
 
         <button
-          formAction={login}
+          formAction={signUp}
           className="border w-full p-3 text-base font-medium rounded-md bg-[#633cff] text-white"
         >
-          Sign in
+          Sign Up
         </button>
 
-        <SignUpLink />
+        <SignInLink />
       </form>
     </div>
   );
