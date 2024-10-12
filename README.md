@@ -47,6 +47,8 @@ Start the server
 
 ## Tech Stack
 
+**I built this project using Node v20. It would be great if you could install Node v20 for the best compatibility.**
+
 **Client:** Nextjs14, TailwindCSS, antd
 
 **Server:** supabase
