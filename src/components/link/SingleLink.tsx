@@ -1,9 +1,10 @@
 import { Input, Select } from "antd";
 import React from "react";
 import { FaGoogle, FaFacebookF, FaInstagram, FaYoutube, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
-import { deleteLink } from "./action";
 import { FiLink } from "react-icons/fi";
+import { AiFillDelete } from "react-icons/ai";
 import useToastMessage from "@/hooks/useToastMessageHook";
+import { deleteLink } from "./action";
 
 interface Link {
   providers: string;
@@ -30,7 +31,7 @@ const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
       <div className="flex flex-row justify-between items-center gap-3 my-3">
         <p className=" text-base text-gray-500 font-extrabold">Link #{id}</p>
         <button
-          className="font-light text-base text-gray-500"
+          className="font-light text-base  bg-red-100 p-2 rounded-md"
           //   formAction={async () => {
           //     await deleteLink(id);
           //   }}
@@ -42,7 +43,9 @@ const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
             showMessage("success", "Data deleted successfully!", 5);
           }}
         >
-          Remove
+          <span className="text-red-500">
+            <AiFillDelete className="w-5 h-5" />
+          </span>
         </button>
       </div>
 

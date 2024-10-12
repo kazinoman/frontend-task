@@ -16,10 +16,12 @@ import {
 import Image from "next/image";
 import { useLinkContext } from "@/context/LinkListContextProvider";
 import { useProfile } from "@/context/profileInfoContextProvider";
+import useToastMessage from "@/hooks/useToastMessageHook";
 
 const PhonePreview = () => {
   const { savedLinks } = useLinkContext();
   const { imagePreview, profileData } = useProfile();
+  const { showMessage, contextHolder } = useToastMessage();
 
   const providerStyles = {
     google: { bgColor: "#4285F4", icon: <FaGoogle /> },
@@ -31,6 +33,18 @@ const PhonePreview = () => {
     linkedin: { bgColor: "#0077B5", icon: <FaLinkedin /> },
     devto: { bgColor: "#0A0A0A", icon: <FaDev /> },
     freecodecamp: { bgColor: "#006400", icon: <FaFreeCodeCamp /> },
+  };
+
+  // Function to handle the copy link clipboard action
+  const handleCopy = (linkUrl: string, provider: string) => {
+    navigator.clipboard
+      .writeText(linkUrl)
+      .then(() => {
+        showMessage(`success`, `Copy the ${provider} link to clipboard`, 3);
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
   };
 
   return (
@@ -75,6 +89,7 @@ const PhonePreview = () => {
                     key={link.id}
                     className="p-1 rounded-lg shadow-md w-full h-12 min-h-12 flex items-center justify-start pl-5"
                     style={{ backgroundColor: bgColor || "#f0f0f0" }}
+                    onClick={() => handleCopy(link.link, link.providers)}
                   >
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">{icon}</div>
@@ -97,6 +112,8 @@ const PhonePreview = () => {
                 ))}
         </div>
       </div>
+
+      {contextHolder}
     </div>
   );
 };

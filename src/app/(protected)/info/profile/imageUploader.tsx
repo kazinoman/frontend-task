@@ -18,10 +18,10 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
   };
 
   return (
-    <div className="flex flex-col items-start md:flex-row md:items-center justify-between gap-3  p-4 w-full">
+    <div className="flex flex-col items-start md:flex-row md:items-center justify-between gap-3  p-6 w-full">
       <span className="text-gray-500">Profile picture</span>
 
-      <div className="flex  flex-col items-start md:flex-row md:items-center justify-between gap-4">
+      <div className="flex  flex-col items-start lg:flex-row md:items-center justify-between gap-4">
         <div
           className="relative w-48 h-48 rounded-lg overflow-hidden shadow-lg cursor-pointer"
           onMouseEnter={() => setIsHovered(true)}
@@ -61,7 +61,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
           </div>
         </div>
 
-        <span className="text-gray-500 w-[200px] text-xs sm:text-sm md:text-base lg:text-base ">
+        <span className="text-gray-500 w-[200px] text-xs sm:text-sm md:text-sm lg:text-base ">
           Image must be below 1024x1024px. Use PNG or JPG format.
         </span>
       </div>

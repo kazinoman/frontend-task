@@ -12,6 +12,7 @@ import { useLinkContext } from "@/context/LinkListContextProvider";
 import useToastMessage from "@/hooks/useToastMessageHook";
 import SingleLink from "./SingleLink";
 import { addLink } from "./action";
+import { AiFillDelete } from "react-icons/ai";
 
 interface LinkContainerProps {
   links: Links[];
@@ -89,20 +90,19 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       showMessage("loading", "Uploading data...");
 
       //@ts-ignore
-      // Simulate API call to add link
+      // API call to add link
       await addLink(linkData);
 
       // Hide the loading message
       hideLoading();
 
-      // If successful, show success message
       showMessage("success", "Link added successfully!");
 
       // Perform additional actions after successful link addition
       handleAddLinkClick();
       form.resetFields();
 
-      return true; // Return success
+      return true;
     } catch (error: unknown) {
       // Catch and handle errors
       if (error instanceof Error) {
@@ -125,8 +125,10 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       <div className="w-full mt-5 p-5 bg-[#fafafa] rounded-2xl">
         <div className="flex flex-row justify-between items-center gap-3 my-3">
           <p className="font-bold text-base text-gray-500">Link #{nextId}</p>
-          <button className="font-light text-base text-gray-500" onClick={handleAddLinkClick}>
-            Remove
+          <button className="font-light text-base  bg-red-100 p-2 rounded-md" onClick={handleAddLinkClick}>
+            <span className="text-red-500">
+              <AiFillDelete className="w-5 h-5" />
+            </span>
           </button>
         </div>
 
@@ -172,6 +174,11 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
     );
   };
 
+  if (links) {
+    // @ts-ignore
+    setSavedLinks(links);
+  }
+
   const noLinksFound = () => {
     return (
       <div className="flex flex-col items-center justify-center gap-5 p-5 bg-[#fafafa] rounded-2xl mt-5 shadow-md">
@@ -185,11 +192,6 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       </div>
     );
   };
-
-  if (links) {
-    // @ts-ignore
-    setSavedLinks(links);
-  }
 
   return (
     <div className="p-0">
@@ -229,7 +231,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
           <Divider />
 
           <div className="flex items-center justify-end">
-            <button onClick={handleFormSubmit} className=" bg-primary text-white px-4 py-2 rounded-md ml-auto">
+            <button onClick={handleFormSubmit} className=" bg-primary text-white px-4 py-2 rounded-md w-full md:w-20">
               Save
             </button>
           </div>

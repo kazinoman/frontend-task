@@ -9,6 +9,7 @@ import { insertUserInfo, UpdateUserInfo } from "./action";
 import useToastMessage from "@/hooks/useToastMessageHook";
 import { logout } from "@/Service/auth/actions";
 import { useLinkContext } from "@/context/LinkListContextProvider";
+import { FaExclamationTriangle, FaTrashAlt } from "react-icons/fa";
 
 // Type for Profile Data
 interface ProfileData {
@@ -291,14 +292,39 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData, user
 
         <div className="mt-10">
           <Divider />
-          <div className="flex flex-col-reverse md:flex-row items-end justify-end gap-2">
-            <form action={signOut}>
-              <button className="border border-primary text-primary  px-1 py-[7px] rounded-md  w-full md:w-20 whitespace-nowrap">
+          <div className="flex flex-col-reverse md:flex-row items-end justify-end gap-4 w-full">
+            <form action={signOut} className="w-full md:w-20">
+              <button className="border border-primary text-primary  px-1 py-[7px] rounded-md w-full md:w-20 whitespace-nowrap">
                 Log Out
               </button>
             </form>
             <button onClick={handleFormSubmit} className="bg-primary text-white px-4 py-2 rounded-md  w-full md:w-20">
               Save
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* danger zone */}
+      <div>
+        <div className="w-full bg-red-50 p-6 rounded-lg shadow-md border border-red-300 shadow-red-50 mt-10">
+          {/* Danger Zone Header */}
+          <div className="flex items-center gap-3 mb-5">
+            <FaExclamationTriangle className="text-red-600 text-xl" />
+            <h2 className="text-xl font-semibold text-red-600">Danger Zone</h2>
+          </div>
+          {/* Description */}
+          <p className="text-sm text-gray-600 mb-6">
+            <strong className="text-red-600">Warning:</strong> Deleting your account is{" "}
+            <span className="font-semibold text-red-500">permanent</span> and{" "}
+            <span className="font-semibold text-red-500">cannot be undone</span>. You will lose all your data, and this
+            action is irreversible. Please proceed with extreme caution.
+          </p>
+
+          {/* Delete Button */}
+          <div className="flex items-center gap-2">
+            <button className="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex gap-2 items-center justify-center">
+              <FaTrashAlt className="text-white" /> <span>Delete Account</span>
             </button>
           </div>
         </div>
