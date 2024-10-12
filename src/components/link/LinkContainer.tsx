@@ -3,15 +3,15 @@
 import React, { useState } from "react";
 import { Divider, Form, Input, Select } from "antd";
 import { FaFacebookF, FaGithub, FaGoogle, FaInstagram, FaLinkedin, FaPlus, FaTwitter, FaYoutube } from "react-icons/fa";
+import { SiDevdotto, SiFreecodecamp } from "react-icons/si";
 import { FiLink } from "react-icons/fi";
 import Image from "next/image";
 import type { FormProps } from "antd";
 import { Links } from "@/type/custom";
+import { useLinkContext } from "@/context/LinkListContextProvider";
+import useToastMessage from "@/hooks/useToastMessageHook";
 import SingleLink from "./SingleLink";
 import { addLink } from "./action";
-import { message } from "antd";
-import { SiDevdotto, SiFreecodecamp } from "react-icons/si";
-import { useLinkContext } from "@/context/LinkListContextProvider";
 
 interface LinkContainerProps {
   links: Links[];
@@ -26,9 +26,9 @@ type FieldType = {
 const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   const [isAddingLink, setIsAddingLink] = useState(false);
   const [nextId, setNextId] = useState(1);
-  const [messageApi, contextHolder] = message.useMessage();
-  const { setSavedLinks, setLoading } = useLinkContext();
 
+  const { setSavedLinks, setLoading } = useLinkContext();
+  const { showMessage, hideLoading, contextHolder } = useToastMessage();
   const [form] = Form.useForm();
   const provider = Form.useWatch("providers", form);
 
@@ -77,8 +77,6 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
 
   const addNewLink: FormProps<FieldType>["onFinish"] = async (values) => {
     try {
-      message.loading({ content: "Loading...", key: "api" });
-
       const linkData = {
         id: generateUniqueId(),
         created_at: new Date().toISOString(),
@@ -87,33 +85,40 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
         user_id: userId,
       };
 
-      await addLink(linkData);
-      message.success({ content: "Link Add successfully!", key: "api", duration: 3 });
-      handleAddLinkClick();
+      // Show loading message
+      showMessage("loading", "Uploading data...");
 
+      // Simulate API call to add link
+      await addLink(linkData);
+
+      // Hide the loading message
+      hideLoading();
+
+      // If successful, show success message
+      showMessage("success", "Link added successfully!");
+
+      // Perform additional actions after successful link addition
+      handleAddLinkClick();
       form.resetFields();
-      return true;
+
+      return true; // Return success
     } catch (error: unknown) {
+      // Catch and handle errors
       if (error instanceof Error) {
-        messageApi.open({
-          key: "api",
-          type: "error",
-          content: error.message,
-        });
+        showMessage("error", error.message);
       } else {
-        // Handle the case where error is not an instance of Error
-        messageApi.open({
-          key: "updatable",
-          type: "error",
-          content: "An unknown error occurred",
-        });
+        showMessage("error", "An unknown error occurred");
       }
-      return false;
-    } finally {
-      messageApi.destroy();
+
+      // Reset form even if there is an error
+      form.resetFields();
+
+      // Ensure loading message is hidden in case of error
+      hideLoading();
+
+      return false; // Return failure
     }
   };
-
   const addLinkForm = () => {
     return (
       <div className="w-full mt-5 p-5 bg-[#fafafa] rounded-2xl">
@@ -187,7 +192,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   return (
     <div className="p-0">
       <div className="text-start flex flex-col gap-2">
-        <h2 className="text-base md:text-lg lg:text-lg xl:text-3xl  font-bold text-gray-900">Customize your links</h2>
+        <h2 className="text-base md:text-lg lg:text-lg xl:text-4xl  font-bold text-titleColor">Customize your links</h2>
         <p className="text-gray-500 font-light text-base">
           Add/edit/remove links below and then share all your profiles with the world!
         </p>
@@ -220,6 +225,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
           </div>
 
           <Divider />
+
           <div className="flex items-center justify-end">
             <button onClick={handleFormSubmit} className=" bg-primary text-white px-4 py-2 rounded-md ml-auto">
               Save

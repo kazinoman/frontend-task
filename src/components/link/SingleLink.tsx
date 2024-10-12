@@ -3,6 +3,7 @@ import React from "react";
 import { FaGoogle, FaFacebookF, FaInstagram, FaYoutube, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 import { deleteLink } from "./action";
 import { FiLink } from "react-icons/fi";
+import useToastMessage from "@/hooks/useToastMessageHook";
 
 interface Link {
   providers: string;
@@ -11,6 +12,8 @@ interface Link {
 }
 
 const SingleLink: React.FC<Link> = ({ providers, link, id }) => {
+  const { showMessage, contextHolder } = useToastMessage();
+
   const options = [
     { value: "google", label: "Google", icon: <FaGoogle /> },
     { value: "facebook", label: "Facebook", icon: <FaFacebookF /> },
@@ -31,7 +34,11 @@ const SingleLink: React.FC<Link> = ({ providers, link, id }) => {
           //     await deleteLink(id);
           //   }}
           onClick={async () => {
+            showMessage("loading", "Deleting link data...");
+
             await deleteLink(id);
+
+            showMessage("success", "Data deleted successfully!", 5);
           }}
         >
           Remove
@@ -65,6 +72,8 @@ const SingleLink: React.FC<Link> = ({ providers, link, id }) => {
           prefix={<FiLink className="mr-4" />}
         />
       </div>
+
+      {contextHolder}
     </div>
   );
 };

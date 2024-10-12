@@ -3,8 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Ubuntu } from "next/font/google";
 import { Inter } from "next/font/google";
-
-import { LinkProvider } from "@/context/LinkListContextProvider";
+import Providers from "@/context/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <LinkProvider>{children}</LinkProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

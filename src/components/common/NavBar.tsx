@@ -10,8 +10,6 @@ export default function NavBar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log("pathname", pathname);
-
   return (
     <nav className="bg-white p-8 rounded-2xl flex items-center justify-between sticky top-0 z-20">
       <Image src="/logo-devlinks-large.svg" alt="logo" width={150} height={150} />

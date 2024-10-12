@@ -44,7 +44,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          id?: number
+          id: number
           link: string
           providers: string
           user_id?: string
@@ -86,6 +86,76 @@ export type Database = {
           url?: string | null
         }
         Relationships: []
+      }
+      profile: {
+        Row: {
+          avatar_url: string
+          email: string | null
+          first_name: string
+          id: string
+          last_name: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url: string
+          email?: string | null
+          first_name: string
+          id: string
+          last_name: string
+          updated_at: string
+        }
+        Update: {
+          avatar_url?: string
+          email?: string | null
+          first_name?: string
+          id?: string
+          last_name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+        }
+        Insert: {
+          avatar: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+        }
+        Update: {
+          avatar?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       test: {
         Row: {

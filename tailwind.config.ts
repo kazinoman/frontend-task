@@ -13,6 +13,9 @@ const config: Config = {
         secondary: "#beadff",
         border: "#d9d9d9",
         white: "#ffffff",
+        background1: "#FAFAFA",
+        titleColor: "#333333",
+        text1: "#737373",
       },
       container: {
         center: true,
