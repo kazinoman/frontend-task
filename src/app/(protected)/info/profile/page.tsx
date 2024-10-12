@@ -8,13 +8,17 @@ export default async function ProfilePage() {
 
   const { data, error } = await supabase.auth.getUser();
 
-  let { data: profile, error: getProfileError } = await supabase.from("profile").select("*");
-
   if (error || !data?.user) {
     redirect("/");
   }
+  const userId = data.user.id;
+  // console.log(userId);
+
+  let { data: profile, error: getProfileError } = await supabase.from("profile").select("*").eq("id", userId);
 
   const userProfileData = profile && profile.length > 0 ? profile[0] : undefined;
+
+  // console.log(userProfileData);
 
   return (
     <div className="p-6">

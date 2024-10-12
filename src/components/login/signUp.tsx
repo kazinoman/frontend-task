@@ -7,9 +7,9 @@ const SignUpLink = () => {
   const router = useRouter();
 
   return (
-    <p className="text-center ">
+    <p className="text-center text-text1 text-sm">
       Don't have an account? &nbsp;
-      <span className="underline cursor-pointer text-primary" onClick={() => router.push("/signup")}>
+      <span className="underline cursor-pointer text-primary font-bold" onClick={() => router.push("/signup")}>
         sign up
       </span>
     </p>

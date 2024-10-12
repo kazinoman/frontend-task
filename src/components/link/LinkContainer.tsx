@@ -88,6 +88,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       // Show loading message
       showMessage("loading", "Uploading data...");
 
+      //@ts-ignore
       // Simulate API call to add link
       await addLink(linkData);
 
@@ -186,6 +187,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   };
 
   if (links) {
+    // @ts-ignore
     setSavedLinks(links);
   }
 
@@ -218,7 +220,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
             {links.map((link) => {
               return (
                 <div key={link.id} className="col-span-1">
-                  <SingleLink providers={link.providers} link={link.link} id={link.id} />
+                  <SingleLink providers={link.providers} link={link.link} id={link.id} userId={userId} />
                 </div>
               );
             })}

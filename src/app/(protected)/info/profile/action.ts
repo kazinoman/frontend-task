@@ -44,15 +44,10 @@ export async function UpdateUserInfo(profile: ProfileUpdate) {
     throw new Error("User not found");
   }
 
-  console.log(userData);
+  console.log(profile, userData.id);
   //   link.user_id = userData.user.id;
 
-  const { data, error } = await supabase
-    .from("profile")
-    // @ts-ignore
-    .update({ ...profile, id: userData.id })
-    .eq("id", userData.id)
-    .select();
+  const { data, error } = await supabase.from("profile").update(profile).eq("id", userData.id).select();
 
   if (error) {
     throw new Error(error.message);

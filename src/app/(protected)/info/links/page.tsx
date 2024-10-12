@@ -9,10 +9,7 @@ export default async function LinksPage() {
   if (!userData || !userData.user) {
     throw new Error("User not found");
   }
-
-  let { data: link_info, error } = await supabase.from("link_info").select("*");
-
-  console.log("link_info", link_info);
+  let { data: link_info, error } = await supabase.from("link_info").select("*").eq("user_id", userData.user.id);
 
   if (error) {
     return <h1>{error.message}</h1>;

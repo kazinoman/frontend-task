@@ -8,10 +8,11 @@ import useToastMessage from "@/hooks/useToastMessageHook";
 interface Link {
   providers: string;
   link: string;
-  id: number;
+  id: number | string;
+  userId: string;
 }
 
-const SingleLink: React.FC<Link> = ({ providers, link, id }) => {
+const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
   const { showMessage, contextHolder } = useToastMessage();
 
   const options = [

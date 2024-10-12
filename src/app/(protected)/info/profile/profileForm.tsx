@@ -32,7 +32,7 @@ interface ProfileUpdateFormProps {
   profileData: CreateOrUpdateProfileProps | undefined;
 }
 
-const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData }) => {
+const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData, userId }) => {
   const [form] = Form.useForm();
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -172,6 +172,7 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData }) =>
 
     if (!profileData) {
       await insertUserInfo({
+        id: userId,
         avatar_url: imageUrl || "",
         first_name: firstName || "",
         last_name: lastName || "",
@@ -181,6 +182,7 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData }) =>
     } else {
       // Update existing user profile if profileData exists
       await UpdateUserInfo({
+        id: userId,
         avatar_url: imageUrl || profileData.avatar_url || "",
         first_name: firstName || profileData.first_name || "",
         last_name: lastName || profileData.last_name || "",

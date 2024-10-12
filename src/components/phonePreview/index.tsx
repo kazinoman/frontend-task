@@ -49,7 +49,7 @@ const PhonePreview = () => {
               className="border-4 border-primary h-[120px] w-[120px] rounded-full object-cover"
             />
           ) : (
-            <div className="border h-[120px] w-[120px] border-[#f0f0f0] rounded-full "></div>
+            <div className="border h-[120px] w-[120px] border-[#f0f0f0] rounded-full bg-slate-200 "></div>
           )}
 
           <span className="p-0 m-0 font-bold max-w-[310px]  mx-center overflow-hidden text-ellipsis whitespace-nowrap">
@@ -64,28 +64,6 @@ const PhonePreview = () => {
           </span>
         </div>
 
-        {/* <div className="flex flex-col items-start justify-start gap-5  md:w-[100%] lg:w-[80%] h-[650px] overflow-auto py-2">
-          {savedLinks &&
-            savedLinks.map((link) => {
-              // Get the style for the current provider
-              const { bgColor, icon } = providerStyles[link.providers as keyof typeof providerStyles] || {};
-
-              return (
-                <div
-                  key={link.id}
-                  className="p-1 rounded-lg shadow-md w-full h-12 min-h-12 flex items-center justify-start pl-5"
-                  style={{ backgroundColor: bgColor || "#f0f0f0" }}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="text-2xl">{icon}</div>
-                    <div>
-                      <h3 className="text-white font-bold">{link.providers}</h3>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-        </div> */}
         <div className="flex flex-col items-start justify-start gap-5  md:w-[100%] lg:w-[80%] h-[650px] overflow-auto py-2">
           {savedLinks && savedLinks.length > 0
             ? savedLinks.map((link) => {

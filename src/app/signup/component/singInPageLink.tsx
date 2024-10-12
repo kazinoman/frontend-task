@@ -7,9 +7,9 @@ const SignInLink = () => {
   const router = useRouter();
 
   return (
-    <p className="text-center ">
+    <p className="text-center text-text1 text-sm">
       Already have an account? &nbsp;
-      <span className="underline cursor-pointer text-primary" onClick={() => router.push("/")}>
+      <span className="underline cursor-pointer text-primary font-bold" onClick={() => router.push("/")}>
         sign in
       </span>
     </p>

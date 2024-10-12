@@ -19,7 +19,10 @@ export async function addLink(link: Links) {
 
   //   link.user_id = userData.user.id;
 
-  const { data, error } = await supabase.from("link_info").insert(link).select();
+  const { data, error } = await supabase
+    .from("link_info")
+    .insert({ ...link, user_id: userData.id })
+    .select();
 
   if (error) {
     throw new Error(error.message);
@@ -28,7 +31,7 @@ export async function addLink(link: Links) {
   revalidatePath("/info/links");
 }
 
-export async function deleteLink(id: number) {
+export async function deleteLink(id: number | string) {
   const supabase = createClient();
 
   // get user Info
@@ -40,7 +43,7 @@ export async function deleteLink(id: number) {
     throw new Error("User not found");
   }
 
-  const { data, error } = await supabase.from("link_info").delete().match({ id, user_id: userData.id });
+  const { data, error } = await supabase.from("link_info").delete().match({ id });
 
   if (error) {
     throw new Error(error.message);
