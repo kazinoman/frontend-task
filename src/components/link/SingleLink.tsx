@@ -14,7 +14,7 @@ interface Link {
 }
 
 const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
-  const { showMessage, contextHolder } = useToastMessage();
+  const { showMessage, contextHolder, hideLoading } = useToastMessage();
 
   const options = [
     { value: "google", label: "Google", icon: <FaGoogle /> },
@@ -39,8 +39,9 @@ const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
             showMessage("loading", "Deleting link data...");
 
             await deleteLink(id);
+            hideLoading();
 
-            showMessage("success", "Data deleted successfully!", 5);
+            showMessage("success", "Data deleted successfully!", 10);
           }}
         >
           <span className="text-red-500">
