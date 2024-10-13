@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider, Form, Input, Select } from "antd";
 import { FaFacebookF, FaGithub, FaGoogle, FaInstagram, FaLinkedin, FaPlus, FaTwitter, FaYoutube } from "react-icons/fa";
 import { SiDevdotto, SiFreecodecamp } from "react-icons/si";
@@ -32,6 +32,13 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   const { showMessage, hideLoading, contextHolder } = useToastMessage();
   const [form] = Form.useForm();
   const provider = Form.useWatch("providers", form);
+
+  // Use useEffect to update the saved links only when the 'links' prop changes
+  useEffect(() => {
+    if (links) {
+      setSavedLinks(links);
+    }
+  }, [links, setSavedLinks]);
 
   const handleAddLinkClick = () => {
     // Mark that a link is being added
@@ -173,11 +180,6 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       </div>
     );
   };
-
-  if (links) {
-    // @ts-ignore
-    setSavedLinks(links);
-  }
 
   const noLinksFound = () => {
     return (
