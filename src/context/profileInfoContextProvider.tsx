@@ -7,7 +7,7 @@ interface ProfileData {
   first_name: string;
   last_name: string;
   email: string;
-  image: string | null;
+  image?: string | null;
 }
 
 interface ProfileContextType {

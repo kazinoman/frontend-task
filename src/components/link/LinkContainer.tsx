@@ -14,10 +14,20 @@ import SingleLink from "./SingleLink";
 import { addLink } from "./action";
 import { AiFillDelete } from "react-icons/ai";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useProfile } from "@/context/profileInfoContextProvider";
 
+interface CreateOrUpdateProfileProps {
+  id: string;
+  first_name: string;
+  last_name: string;
+  avatar_url: string;
+  email: string;
+  updated_at: string;
+}
 interface LinkContainerProps {
   links: Links[];
   userId: string;
+  profileData: CreateOrUpdateProfileProps | undefined;
 }
 
 type FieldType = {
@@ -25,12 +35,13 @@ type FieldType = {
   link: string;
 };
 
-const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
+const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId, profileData }) => {
   const [isAddingLink, setIsAddingLink] = useState(false);
   const [nextId, setNextId] = useState(1);
 
   const { setSavedLinks, setLoading, savedLinks } = useLinkContext();
   const { showMessage, hideLoading, contextHolder } = useToastMessage();
+  const { setImagePreview, setProfileData } = useProfile();
   const [form] = Form.useForm();
   const provider = Form.useWatch("providers", form);
 
@@ -40,6 +51,11 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       setSavedLinks(links);
     }
   }, [links, setSavedLinks]);
+
+  useEffect(() => {
+    profileData && setImagePreview(profileData?.avatar_url);
+    profileData && setProfileData(profileData);
+  }, [profileData]);
 
   const handleAddLinkClick = () => {
     // Mark that a link is being added
