@@ -63,7 +63,7 @@ export default function PreviewPage() {
           </button>
           <button className="bg-primary text-white px-6 py-2 rounded-md  w-full md:w-32">Share Link</button>
         </div>
-        <div className="h-[500px] w-[300px] mt-[-30px] z-20 bg-background1 rounded-3xl border p-6 shadow-lg absolute top-[450px] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+        <div className="h-[500px] w-[400px] mt-[-30px] z-20 bg-background1 rounded-3xl border p-6 shadow-lg absolute top-[450px] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
           <div className="  gap-2 flex flex-col items-center justify-start text-center z-10">
             <div className="flex flex-col items-center justify-center gap-1">
               {imagePreview ? (

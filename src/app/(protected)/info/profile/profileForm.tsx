@@ -36,7 +36,6 @@ interface ProfileUpdateFormProps {
 const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData, userId }) => {
   const [form] = Form.useForm();
   const [file, setFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
   const { showMessage, hideLoading, contextHolder } = useToastMessage();
   const { setImagePreview, imagePreview, setProfileData } = useProfile();
   const { setSavedLinks } = useLinkContext();
@@ -102,63 +101,20 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData, user
         alert("Please select an image to upload");
         return null;
       }
-      setUploading(true);
+
       const fileExt = file.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`; // Unique filename
 
-      const { error, data } = await supabaseClientSide.storage
-        .from("avatars") // Replace with your Supabase bucket name
-        .upload(`${fileName}`, file);
+      const { error, data } = await supabaseClientSide.storage.from("avatars").upload(`${fileName}`, file);
 
-      console.log(data, error);
-
-      const publicUrl = supabaseClientSide.storage
-        .from("avatars") // Replace with your Supabase bucket name
-        .getPublicUrl(`${fileName}`).data.publicUrl;
+      const publicUrl = supabaseClientSide.storage.from("avatars").getPublicUrl(`${fileName}`).data.publicUrl;
 
       return publicUrl;
     } catch (error) {
       console.error("Error uploading image: ", error);
       return null;
-    } finally {
-      setUploading(false);
     }
   };
-
-  // const onFinish = async (values: any) => {
-  //   let imageUrl: any;
-
-  //   if (file) {
-  //     imageUrl = await uploadImageToSupabase();
-  //   } else {
-  //     imageUrl = imagePreview;
-  //   }
-
-  //   if (!profileData) {
-  //     await insertUserInfo({
-  //       avatar_url: imageUrl,
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //       email: email,
-  //       updated_at: new Date().toISOString(),
-  //     });
-  //   } else {
-  //     await UpdateUserInfo({
-  //       avatar_url: imageUrl,
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //       email: email,
-  //       updated_at: new Date().toISOString(),
-  //       id: profileData?.id,
-  //     });
-  //   }
-
-  //   // @ts-ignore
-  //   setProfileData((prev) => ({
-  //     ...prev,
-  //     image: imageUrl || prev.image,
-  //   }));
-  // };
 
   const onFinish = async (values: any) => {
     showMessage("loading", "Uploading data...");

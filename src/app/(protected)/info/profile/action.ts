@@ -16,7 +16,7 @@ export async function insertUserInfo(profile: ProfileUpdate) {
     throw new Error("User not found");
   }
 
-  console.log(userData);
+  // console.log(userData);
   //   link.user_id = userData.user.id;
 
   const { data, error } = await supabase
@@ -44,7 +44,7 @@ export async function UpdateUserInfo(profile: ProfileUpdate) {
     throw new Error("User not found");
   }
 
-  console.log(profile, userData.id);
+  // console.log(profile, userData.id);
   //   link.user_id = userData.user.id;
 
   const { data, error } = await supabase.from("profile").update(profile).eq("id", userData.id).select();

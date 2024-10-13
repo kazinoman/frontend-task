@@ -129,6 +129,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
     }
   };
 
+  // handle drag and drop functionality
   const onDragEnd = (result: any) => {
     const { source, destination } = result;
 
@@ -201,8 +202,8 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       <div className="flex flex-col items-center justify-center gap-5 p-5 bg-[#fafafa] rounded-2xl mt-5 shadow-md">
         <Image src={"/no_links_found.svg"} alt="No links found" width={300} height={300} />
 
-        <p className="text-3xl font-bold text-gray-900">Let's get you started</p>
-        <p className="text-sm font-thin text-gray-900 text-center mx-40">
+        <p className="text-base md:text:base lg:text-lg xl:text-3xl font-bold text-gray-900 ">Let's get you started</p>
+        <p className="text-sm font-thin text-gray-900 text-center mx-0 lg:mx-40">
           Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them.
           We're here to help you share your profiles with everyone!
         </p>
@@ -272,7 +273,14 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
           <Divider />
 
           <div className="flex items-center justify-end">
-            <button onClick={handleFormSubmit} className=" bg-primary text-white px-4 py-2 rounded-md w-full md:w-20">
+            <button
+              onClick={handleFormSubmit}
+              // className=" bg-primary text-white px-4 py-2 rounded-md w-full md:w-20"
+              className={`px-4 py-2 rounded-md w-full md:w-20 text-white ${
+                isAddingLink ? "bg-primary cursor-pointer" : "bg-gray-400 cursor-not-allowed"
+              }`}
+              disabled={!isAddingLink}
+            >
               Save
             </button>
           </div>
