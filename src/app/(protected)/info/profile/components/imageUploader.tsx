@@ -37,7 +37,10 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
 
           {/* Hover Overlay */}
 
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
+          <label
+            htmlFor="fileInput"
+            className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center cursor-pointer"
+          >
             <label htmlFor="fileInput" className="text-white cursor-pointer flex flex-col items-center justify-center">
               <svg
                 className="w-10 h-10 mb-2"
@@ -57,7 +60,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
               onChange={handleFileChange}
               className="hidden"
             />
-          </div>
+          </label>
         </div>
 
         <span className="text-gray-500 w-[200px] text-xs sm:text-sm md:text-sm lg:text-base ">
