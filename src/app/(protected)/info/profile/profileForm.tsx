@@ -321,6 +321,13 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ profileData, user
             action is irreversible. Please proceed with extreme caution.
           </p>
 
+          {/* Under Construction Message */}
+          <p className="text-sm text-gray-600 mb-6">
+            <strong className="text-red-600">Note:</strong> This section is currently{" "}
+            <span className="font-semibold text-red-500">under construction</span>. Please check back later for more
+            updates.
+          </p>
+
           {/* Delete Button */}
           <div className="flex items-center gap-2">
             <button className="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex gap-2 items-center justify-center">
