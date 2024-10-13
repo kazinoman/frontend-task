@@ -28,26 +28,26 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  useEffect(() => {
-    const getUserData = async () => {
-      const user = await supabaseClientSide.auth.getUser();
-      if (user.data?.user) {
-        const { data, error } = await supabaseClientSide.from("users").select("*").eq("id", user.data.user.id).single();
-        if (data) {
-          setProfileData({
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
-            image: data.avatar_url,
-          });
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const getUserData = async () => {
+  //     const user = await supabaseClientSide.auth.getUser();
+  //     if (user.data?.user) {
+  //       const { data, error } = await supabaseClientSide.from("users").select("*").eq("id", user.data.user.id).single();
+  //       if (data) {
+  //         setProfileData({
+  //           first_name: data.first_name,
+  //           last_name: data.last_name,
+  //           email: data.email,
+  //           image: data.avatar_url,
+  //         });
+  //       }
+  //     }
+  //   };
 
-    getUserData();
+  //   getUserData();
 
-    console.log("userData", profileData);
-  }, []);
+  //   console.log("userData", profileData);
+  // }, []);
 
   return (
     <ProfileContext.Provider value={{ profileData, setProfileData, imagePreview, setImagePreview }}>
