@@ -12,6 +12,7 @@ import {
   FaDev,
   FaFreeCodeCamp,
 } from "react-icons/fa";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 import Image from "next/image";
 import { useLinkContext } from "@/context/LinkListContextProvider";
@@ -19,7 +20,7 @@ import { useProfile } from "@/context/profileInfoContextProvider";
 import useToastMessage from "@/hooks/useToastMessageHook";
 
 const PhonePreview = () => {
-  const { savedLinks } = useLinkContext();
+  const { savedLinks, setSavedLinks } = useLinkContext();
   const { imagePreview, profileData } = useProfile();
   const { showMessage, contextHolder } = useToastMessage();
 
@@ -45,6 +46,18 @@ const PhonePreview = () => {
       .catch((err) => {
         console.error("Failed to copy text: ", err);
       });
+  };
+
+  // Function to handle drag-and-drop reordering
+  const handleOnDragEnd = (result: any) => {
+    const { destination, source } = result;
+    if (!destination) return;
+
+    const items = Array.from(savedLinks || []);
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+
+    setSavedLinks(items);
   };
 
   return (
@@ -78,7 +91,7 @@ const PhonePreview = () => {
           </span>
         </div>
 
-        <div className="flex flex-col items-start justify-start gap-5  md:w-[100%] lg:w-[80%] h-[650px] overflow-auto py-2">
+        {/* <div className="flex flex-col items-start justify-start gap-5  md:w-[100%] lg:w-[80%] h-[650px] overflow-auto py-2">
           {savedLinks && savedLinks.length > 0
             ? savedLinks.map((link) => {
                 // Get the style for the current provider
@@ -110,7 +123,58 @@ const PhonePreview = () => {
                     <div className="flex items-center gap-4"></div>
                   </div>
                 ))}
-        </div>
+        </div> */}
+
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="links">
+            {(provided) => (
+              <div
+                className="flex flex-col items-start justify-start gap-5  md:w-[100%] lg:w-[80%] h-[650px] overflow-auto py-2"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {savedLinks && savedLinks.length > 0
+                  ? savedLinks.map((link, index) => {
+                      const { bgColor, icon } = providerStyles[link.providers as keyof typeof providerStyles] || {};
+
+                      return (
+                        <Draggable key={link.id} draggableId={link.id.toString()} index={index}>
+                          {(provided) => (
+                            <div
+                              className="p-1 rounded-lg shadow-md w-full h-12 min-h-12 flex items-center justify-start pl-5"
+                              onClick={() => handleCopy(link.link, link.providers)}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={{
+                                ...provided.draggableProps.style, // Merge draggable styles with custom styles
+                                backgroundColor: bgColor || "#f0f0f0",
+                              }}
+                            >
+                              <div className="flex items-center gap-4">
+                                <div className="text-2xl">{icon}</div>
+                                <div>
+                                  <h3 className="text-white font-bold">{link.providers}</h3>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })
+                  : Array(6)
+                      .fill(null)
+                      .map((_, index) => (
+                        <div
+                          key={index}
+                          className="p-1 rounded-lg w-full h-12 min-h-12 flex items-center justify-start pl-5 bg-slate-200"
+                        ></div>
+                      ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
 
       {contextHolder}

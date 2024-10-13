@@ -13,6 +13,7 @@ import useToastMessage from "@/hooks/useToastMessageHook";
 import SingleLink from "./SingleLink";
 import { addLink } from "./action";
 import { AiFillDelete } from "react-icons/ai";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 interface LinkContainerProps {
   links: Links[];
@@ -28,7 +29,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
   const [isAddingLink, setIsAddingLink] = useState(false);
   const [nextId, setNextId] = useState(1);
 
-  const { setSavedLinks, setLoading } = useLinkContext();
+  const { setSavedLinks, setLoading, savedLinks } = useLinkContext();
   const { showMessage, hideLoading, contextHolder } = useToastMessage();
   const [form] = Form.useForm();
   const provider = Form.useWatch("providers", form);
@@ -127,6 +128,20 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
       return false; // Return failure
     }
   };
+
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+
+    // Reorder the links based on the drag result
+    const reorderedLinks = Array.from(savedLinks || []);
+    const [removed] = reorderedLinks.splice(source.index, 1);
+    reorderedLinks.splice(destination.index, 0, removed);
+
+    setSavedLinks(reorderedLinks);
+  };
+
   const addLinkForm = () => {
     return (
       <div className="w-full mt-5 p-5 bg-[#fafafa] rounded-2xl">
@@ -221,13 +236,37 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId }) => {
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-1 gap-5 max-h-[600px] overflow-y-auto">
             {isAddingLink && addLinkForm()}
 
-            {links.map((link) => {
+            {/* {links.map((link) => {
               return (
                 <div key={link.id} className="col-span-1">
                   <SingleLink providers={link.providers} link={link.link} id={link.id} userId={userId} />
                 </div>
               );
-            })}
+            })} */}
+
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="links">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {savedLinks?.map((link, index) => (
+                      <Draggable key={link.id} draggableId={link.id.toString()} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className="col-span-1"
+                          >
+                            <SingleLink providers={link.providers} link={link.link} id={link.id} userId={userId} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
 
           <Divider />

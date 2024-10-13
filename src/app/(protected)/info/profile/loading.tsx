@@ -33,12 +33,12 @@ const ProfileLoading = () => {
           <div className="border-t border-gray-400"></div>
           <div className="flex flex-col-reverse md:flex-row items-end justify-end gap-4 w-full p-5">
             <div className="w-full md:w-20 h-10 bg-gray-400 rounded"></div>
-            <div className="bg-primary text-white px-4 py-2 rounded-md  w-full md:w-20 h-10 bg-gray-400 rounded"></div>
+            <div className="bg-primary text-white px-4 py-2 rounded-md  w-full md:w-20 h-10  "></div>
           </div>
         </div>
       </div>
 
-      <div className="w-full bg-red-50 p-6 rounded-lg shadow-md border border-red-300 shadow-red-50 mt-10 bg-gray-200 animate-pulse">
+      <div className="w-full bg-red-50 p-6 rounded-lg shadow-md border border-red-300 shadow-red-50 mt-10  animate-pulse">
         <div className="flex items-center gap-3 mb-5 h-6"></div>
         <p className="text-sm text-gray-600 mb-6 h-6"></p>
         <div className="flex items-center gap-2 h-10"></div>
