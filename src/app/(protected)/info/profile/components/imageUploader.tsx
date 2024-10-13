@@ -9,14 +9,6 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
   const [image, setImage] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const selectedFile = event.target.files[0];
-      const imageUrl = URL.createObjectURL(selectedFile);
-      setImage(imageUrl);
-    }
-  };
-
   return (
     <div className="flex flex-col items-start md:flex-row md:items-center justify-between gap-3  p-6 w-full">
       <span className="text-gray-500">Profile picture</span>
@@ -29,7 +21,14 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ imagePrevie
         >
           {/* Image Preview */}
           {imagePreview ? (
-            <img src={imagePreview} alt="Profile" className="w-full h-full object-cover" />
+            <img
+              src={imagePreview}
+              alt="Profile"
+              // className={`w-full h-full object-cover ${isHovered ? "opacity-40" : "opacity-100"} transition-opacity `}
+              className={`w-full h-full object-cover 
+                ${isHovered ? "opacity-40 scale-105" : "opacity-100 scale-100"} 
+                transition-opacity transition-transform duration-300 ease-in-out`}
+            />
           ) : (
             <div className="bg-gray-200 w-full h-full flex items-center justify-center">
               <span className="text-gray-500">No Image</span>

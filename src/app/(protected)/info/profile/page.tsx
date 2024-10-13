@@ -1,7 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "../../../../utils/server";
-import ProfileUpdateForm from "./profileForm";
+import ProfileUpdateForm from "./components/profileForm";
 
 export default async function ProfilePage() {
   const supabase = createClient();

@@ -5,7 +5,7 @@ import { supabaseClientSide } from "@/utils/client2";
 import { useProfile } from "@/context/profileInfoContextProvider";
 import { Divider, Form, Input } from "antd";
 import ProfileImageUploader from "./imageUploader";
-import { insertUserInfo, UpdateUserInfo } from "./action";
+import { insertUserInfo, UpdateUserInfo } from "../action";
 import useToastMessage from "@/hooks/useToastMessageHook";
 import { logout } from "@/Service/auth/actions";
 import { useLinkContext } from "@/context/LinkListContextProvider";
