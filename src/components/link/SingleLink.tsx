@@ -29,7 +29,7 @@ const SingleLink: React.FC<Link> = ({ providers, link, id, userId }) => {
   return (
     <div className="mt-5 p-5 bg-[#fafafa] rounded-2xl">
       <div className="flex flex-row justify-between items-center gap-3 my-3">
-        <p className=" text-base text-gray-500 font-extrabold">Link #{id}</p>
+        <p className=" text-base text-gray-500 font-extrabold">Link #{id.toString().slice(-4)}</p>
         <button
           className="font-light text-base  bg-red-100 p-2 rounded-md"
           //   formAction={async () => {

@@ -17,7 +17,7 @@ export default async function ProfilePage() {
   const userProfileData = profile && profile.length > 0 ? profile[0] : undefined;
 
   return (
-    <div className="p-6">
+    <div className="p-0">
       <div className="flex flex-col gap-3 items-start justify-start mb-10">
         <h2 className="text-base md:text-lg lg:text-lg xl:text-4xl  font-bold text-titleColor">Profile Details</h2>
         <p className="text-[#737373] font-light text-base">

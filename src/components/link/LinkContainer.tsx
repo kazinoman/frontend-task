@@ -231,7 +231,7 @@ const LinkContainer: React.FC<LinkContainerProps> = ({ links, userId, profileDat
     <div className="p-0">
       <div className="text-start flex flex-col gap-2">
         <h2 className="text-base md:text-lg lg:text-lg xl:text-4xl  font-bold text-titleColor">Customize your links</h2>
-        <p className="text-gray-500 font-light text-base">
+        <p className="text-gray-500 text-xs sm:text-sm md:text-base  font-light text-textColor">
           Add/edit/remove links below and then share all your profiles with the world!
         </p>
 
