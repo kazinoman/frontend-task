@@ -19,7 +19,7 @@ export default function ProtectedPageLayout({
         </div>
 
         {/* Right Side - Full width on small screens and 16 columns on medium and larger screens */}
-        <div className="col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 bg-white p-4 rounded-2xl">
+        <div className="col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 bg-white p-4 md:p-6 rounded-2xl">
           {children}
         </div>
       </div>
