@@ -20,7 +20,7 @@ export default async function ProfilePage() {
     <div className="p-0">
       <div className="flex flex-col gap-3 items-start justify-start mb-10">
         <h2 className="text-base md:text-lg lg:text-lg xl:text-4xl  font-bold text-titleColor">Profile Details</h2>
-        <p className="text-[#737373] font-light text-base">
+        <p className="text-[#737373] text-xs sm:text-sm md:text-base font-light text-textColor">
           Add your details to create a personal touch to your profile.
         </p>
       </div>
